@@ -200,7 +200,7 @@
               </div>
               <div class="wiki-hero-divider"></div>
               <div class="wiki-hero-right">
-                <p class="wiki-hero-desc">Un archivo visual de correspondencias entre Human Interface Guidelines y Material Design 3. Consulta equivalencias entre componentes y patrones con documentación oficial, SDK, recursos en Figma y referencias adicionales para cada caso.</p>
+                <p class="wiki-hero-desc">Un repo para comparar componentes de iOS y Material Design y entender qué cambia, qué se parece y qué no entre ambas plataformas.</p>
                 <div class="wiki-hero-ctas">
                   <a href="#/component/${pairSlugs[0]?.slug || ""}" class="wiki-hero-btn wiki-hero-btn-primary">Explorar componentes →</a>
                   <a href="#/about" class="wiki-hero-btn wiki-hero-btn-secondary">Sobre el proyecto</a>
@@ -277,7 +277,23 @@
           <a href="#/" class="comp-back">← Volver</a>
           <h1 class="wiki-h1">Recursos</h1>
           <div class="wiki-block">
-            <p class="wiki-p" style="margin-bottom: 0;">Kits de diseño, plantillas, herramientas y otros recursos útiles para trabajar con iOS y Material Design. <strong>Sección en construcción.</strong></p>
+            <p class="wiki-p" style="margin-bottom: 1rem;">Kits de diseño, plantillas, herramientas y otros recursos útiles para trabajar con iOS y Material Design.</p>
+            <h2 class="wiki-about-h3" style="margin-top: 1.5rem;">UI Kits oficiales</h2>
+            <p class="wiki-p" style="margin-bottom: 1rem; font-size: 0.875rem; color: #64748b;">Descarga los kits completos en Figma.</p>
+            <div class="wiki-kits-grid">
+              <a href="https://www.figma.com/community/file/1035203688168086460" target="_blank" rel="noopener" class="wiki-kit-card">
+                <img src="assets/cover-material3.png" alt="Material 3 Design Kit" class="wiki-kit-cover" />
+                <span class="wiki-kit-title">Material 3 Design Kit</span>
+                <span class="wiki-kit-meta">Figma Community</span>
+                <span class="wiki-kit-dates">Última actualización: 3 feb 2026</span>
+              </a>
+              <a href="https://www.figma.com/community/file/1527721578857867021" target="_blank" rel="noopener" class="wiki-kit-card">
+                <img src="assets/cover-ios26.png" alt="iOS and iPadOS 26 UI Kit" class="wiki-kit-cover" />
+                <span class="wiki-kit-title">iOS and iPadOS 26 UI Kit</span>
+                <span class="wiki-kit-meta">Apple Design Resources</span>
+                <span class="wiki-kit-dates">Última actualización: 17 mar 2026</span>
+              </a>
+            </div>
           </div>
         </section>
       `);
@@ -289,42 +305,61 @@
         <section class="wiki-about">
           <a href="#/" class="comp-back">← Volver</a>
 
-          <p class="wiki-about-lead">A curated reference for iOS and Material Design component correspondences. It might sound obvious, but we believe the best way to design for both platforms is to understand what each system offers—and how they relate.</p>
+          <p class="wiki-about-lead">Un repo para comparar componentes de iOS y Material Design y entender qué cambia, qué se parece y qué no entre ambas plataformas.</p>
 
-          <p class="wiki-about-p">Our mission is to document the correspondences between Human Interface Guidelines and Material Design 3, providing levels of match, links to official docs, SDKs, and Figma kits for designers and developers working across platforms.</p>
+          <p class="wiki-about-p">El objetivo es documentar las correspondencias entre las <a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank" rel="noopener" class="wiki-about-link">Human Interface Guidelines</a> y <a href="https://m3.material.io/" target="_blank" rel="noopener" class="wiki-about-link">Material Design 3</a>, ofreciendo niveles de coincidencia, enlaces a documentación oficial, SDKs y kits de Figma para diseñadores y desarrolladores que trabajan en múltiples plataformas.</p>
 
-          <p class="wiki-about-p">All correspondences have been 100% manually researched and validated against official HIG and M3 documentation.</p>
+          <p class="wiki-about-p">Todas las correspondencias han sido investigadas y validadas al 100% de forma manual frente a la documentación oficial de HIG y M3.</p>
 
-          <p class="wiki-about-p wiki-about-tagline">A living reference that evolves with HIG and Material Design updates, made with care for the design community.</p>
+          <p class="wiki-about-p wiki-about-tagline">Una referencia viva que evoluciona con las actualizaciones de HIG y Material Design, hecha con cariño para la comunidad de diseño.</p>
 
           <div class="wiki-about-block">
-            <p class="wiki-about-p" style="margin-bottom: 0.75rem;">This project is community-driven, designed as a resource where people can learn, compare, and make informed decisions when designing for iOS and Android.</p>
-            <a href="#/component/${pairSlugs[0]?.slug || ""}" class="wiki-about-cta">Explore components →</a>
+            <p class="wiki-about-p" style="margin-bottom: 0.75rem;">Este proyecto es impulsado por la comunidad, diseñado como un recurso donde la gente puede aprender, comparar y tomar decisiones informadas al diseñar para iOS y Android.</p>
+            <a href="#/component/${pairSlugs[0]?.slug || ""}" class="wiki-about-cta">Explorar componentes →</a>
+          </div>
+
+          <div class="wiki-about-kits">
+            <h3 class="wiki-about-h3">UI Kits oficiales</h3>
+            <p class="wiki-about-p" style="margin-bottom: 1rem;">Descarga los kits completos en Figma.</p>
+            <div class="wiki-kits-grid">
+              <a href="https://www.figma.com/community/file/1035203688168086460" target="_blank" rel="noopener" class="wiki-kit-card">
+                <img src="assets/cover-material3.png" alt="Material 3 Design Kit" class="wiki-kit-cover" />
+                <span class="wiki-kit-title">Material 3 Design Kit</span>
+                <span class="wiki-kit-meta">Figma Community</span>
+                <span class="wiki-kit-dates">Última actualización: 3 feb 2026</span>
+              </a>
+              <a href="https://www.figma.com/community/file/1527721578857867021" target="_blank" rel="noopener" class="wiki-kit-card">
+                <img src="assets/cover-ios26.png" alt="iOS and iPadOS 26 UI Kit" class="wiki-kit-cover" />
+                <span class="wiki-kit-title">iOS and iPadOS 26 UI Kit</span>
+                <span class="wiki-kit-meta">Apple Design Resources</span>
+                <span class="wiki-kit-dates">Última actualización: 17 mar 2026</span>
+              </a>
+            </div>
           </div>
 
           <div class="wiki-about-meta">
             <div class="wiki-about-meta-item">
-              <span class="wiki-about-meta-label">Status</span>
-              <span class="wiki-about-meta-value">Active & growing</span>
+              <span class="wiki-about-meta-label">Estado</span>
+              <span class="wiki-about-meta-value">Activo y en crecimiento</span>
             </div>
             <div class="wiki-about-meta-item">
-              <span class="wiki-about-meta-label">Updated</span>
-              <span class="wiki-about-meta-value">March 2026</span>
+              <span class="wiki-about-meta-label">Actualizado</span>
+              <span class="wiki-about-meta-value">Marzo 2026</span>
             </div>
           </div>
 
           <div class="wiki-about-credits">
-            <h3 class="wiki-about-h3">Inspirations & credits</h3>
-            <p class="wiki-about-p">Inspired by the clarity of official design guidelines and the need for cross-platform reference tools.</p>
-            <p class="wiki-about-p">Built with vanilla JS, Tailwind CSS, and Cursor.</p>
-            <p class="wiki-about-p" style="margin-bottom: 0;">Thanks to Apple and Google for the Human Interface Guidelines and Material Design documentation.</p>
+            <h3 class="wiki-about-h3">Inspiraciones y créditos</h3>
+            <p class="wiki-about-p">Inspirado por la claridad de las guías oficiales de diseño y la necesidad de herramientas de referencia multiplataforma.</p>
+            <p class="wiki-about-p">Construido con vanilla JS, Tailwind CSS y Cursor.</p>
+            <p class="wiki-about-p" style="margin-bottom: 0;">Gracias a Apple y Google por las Human Interface Guidelines y la documentación de Material Design.</p>
           </div>
 
           <div class="wiki-about-madeby">
-            <h3 class="wiki-about-h3">Made by</h3>
+            <h3 class="wiki-about-h3">Hecho por</h3>
             <div class="wiki-about-shiftr">
               <img src="assets/shift-r-logo.png" alt="Shift+R" class="wiki-about-shiftr-logo" width="40" height="40" />
-              <p class="wiki-about-p" style="margin-bottom: 0;">A school specialized in Design Systems since 2021, teaching emerging technologies like MCPs, AI tools for designers, and cutting-edge design practices including UI for iOS and Android apps.</p>
+              <p class="wiki-about-p" style="margin-bottom: 0;">Una escuela especializada en Design Systems desde 2021, enseñando tecnologías emergentes como MCPs, herramientas de IA para diseñadores y prácticas de diseño de vanguardia, incluyendo UI para apps de iOS y Android.</p>
             </div>
             <a href="https://www.shiftr.pro/" target="_blank" rel="noopener" class="wiki-about-link">shiftr.pro</a>
           </div>
@@ -338,6 +373,18 @@
       const list = side === "md" ? orphansMd : orphansIos;
       const title = side === "md" ? "Material 3 — Sin correspondencia" : "iOS — Sin correspondencia";
 
+      const iosPatterns = [
+        { label: "Wallet", url: "https://www.figma.com/community/file/1367917956770293718", thumb: "assets/pattern-wallet.png" },
+        { label: "TipKit", url: "https://www.figma.com/community/file/1367917705471226837", thumb: "assets/pattern-tipkit.png" },
+        { label: "Tap to Pay on iPhone", url: "https://www.figma.com/community/file/1367917199004804052", thumb: "assets/pattern-tap-to-pay.png" },
+        { label: "App Intents & Shortcuts", url: "https://www.figma.com/community/file/1367916969551216595", thumb: "assets/pattern-app-intents.png" },
+        { label: "Sign in with Apple", url: "https://www.figma.com/community/file/1367916685468040146", thumb: "assets/pattern-sign-in-with-apple.png" },
+        { label: "iMessage Apps and Stickers", url: "https://www.figma.com/community/file/1367916269438172112", thumb: "assets/pattern-messages.png" },
+        { label: "Live Activities", url: "https://www.figma.com/community/file/1367915437752334285", thumb: "assets/pattern-live-activities.png" },
+        { label: "Apple Pay", url: "https://www.figma.com/community/file/1367915141082663884", thumb: "assets/pattern-apple-pay.png" },
+        { label: "App Clips", url: "https://www.figma.com/community/file/1367914571662801866", thumb: "assets/pattern-app-clips.png" },
+      ];
+
       function renderOrphan(node) {
         return `
           <div class="orphan-card" title="${escapeHtml(node.note || "")}">
@@ -346,6 +393,22 @@
           </div>
         `;
       }
+
+      const patternsSection = side === "ios" ? `
+        <h2 class="orphan-patterns-title"><span class="hero-title-highlight hero-title-highlight-ios">Patrones y plantillas de Apple</span></h2>
+        <p class="wiki-p" style="margin-bottom: 1rem; font-size: 0.875rem; color: #64748b;">Recursos de Apple Design en Figma para patrones específicos de iOS.</p>
+        <div class="orphan-patterns">
+          ${iosPatterns.map((p) => `
+            <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener" class="orphan-pattern-link" title="${escapeHtml(p.label)}">
+              <span class="orphan-pattern-avatar">
+                <img src="${escapeHtml(p.thumb)}" alt="" class="orphan-pattern-thumb" loading="lazy" />
+              </span>
+              <span class="orphan-pattern-label">${escapeHtml(p.label)}</span>
+              <span class="orphan-pattern-icon">→</span>
+            </a>
+          `).join("")}
+        </div>
+      ` : "";
 
       const platformIcon = side === "ios" ? icons.apple : icons.android;
       renderWithTransition(`
@@ -356,6 +419,7 @@
           <div class="orphan-cards">
             ${list.length > 0 ? list.map(renderOrphan).join("") : '<span class="orphan-empty">Ninguno</span>'}
           </div>
+          ${patternsSection}
         </section>
       `);
       return;
