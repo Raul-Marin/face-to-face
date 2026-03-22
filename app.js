@@ -208,9 +208,9 @@
               </div>
             </header>
             <div class="wiki-hero-grid">
-              <a href="#/" class="wiki-hero-block">
-                <span class="wiki-hero-block-icon" style="color:#007AFF">${icons.apple || ""}</span>
-                <span class="wiki-hero-block-icon" style="color:#3ddc84">${icons.android || ""}</span>
+              <a href="#/" class="wiki-hero-block wiki-hero-block-correspondencias">
+                <span class="wiki-hero-block-icon wiki-hero-block-icon-ios">${icons.apple || ""}</span>
+                <span class="wiki-hero-block-icon wiki-hero-block-icon-android">${icons.android || ""}</span>
                 <h3 class="wiki-hero-block-title">Correspondencias</h3>
                 <p class="wiki-hero-block-desc">Equivalencias entre componentes de iOS y Material, clasificadas por nivel de correspondencia: alta, media o baja.</p>
               </a>
@@ -228,23 +228,35 @@
               </div>
             </div>
             </div>
-            <div class="wiki-home-legend">
-              <h2 class="wiki-home-h2">Nivel de correspondencia</h2>
-              <div class="wiki-legend-table">
-                <div class="wiki-legend-row">
-                  <span class="wiki-legend-label wiki-badge wiki-badge-alta">Alta</span>
-                  <span class="wiki-legend-desc">Ambos componentes cumplen una función muy similar y suelen responder a la misma intención de uso en la mayoría de productos.</span>
-                </div>
-                <div class="wiki-legend-row">
-                  <span class="wiki-legend-label wiki-badge wiki-badge-media">Media</span>
-                  <span class="wiki-legend-desc">Existe una relación clara, pero cambian el contexto, el comportamiento o la implementación según la plataforma.</span>
-                </div>
-                <div class="wiki-legend-row">
-                  <span class="wiki-legend-label wiki-badge wiki-badge-baja">Baja</span>
-                  <span class="wiki-legend-desc">La relación es solo orientativa: comparten cierta lógica, pero no son equivalentes ni deberían tratarse como intercambiables.</span>
+            <section class="wiki-home-legend" aria-labelledby="wiki-legend-heading">
+              <h2 id="wiki-legend-heading" class="wiki-home-h2">Nivel de correspondencia</h2>
+              <div class="wiki-legend-table-wrap">
+                <div class="wiki-legend-table-surface">
+                <table class="wiki-legend-matrix" aria-labelledby="wiki-legend-heading">
+                  <tbody>
+                    <tr>
+                      <th scope="row">
+                        <span class="wiki-legend-th-inner"><span class="wiki-badge wiki-badge-alta">Alta</span></span>
+                      </th>
+                      <td>Función muy similar y misma intención de uso en la mayoría de productos.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <span class="wiki-legend-th-inner"><span class="wiki-badge wiki-badge-media">Media</span></span>
+                      </th>
+                      <td>Relación clara, pero cambian contexto, comportamiento o implementación según plataforma.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <span class="wiki-legend-th-inner"><span class="wiki-badge wiki-badge-baja">Baja</span></span>
+                      </th>
+                      <td>Relación orientativa: comparten lógica, no son equivalentes ni intercambiables.</td>
+                    </tr>
+                  </tbody>
+                </table>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
         </div>
       `);
@@ -278,6 +290,20 @@
           <h1 class="wiki-h1">Recursos</h1>
           <div class="wiki-block">
             <p class="wiki-p" style="margin-bottom: 1rem;">Kits de diseño, plantillas, herramientas y otros recursos útiles para trabajar con iOS y Material Design.</p>
+
+            <h2 class="wiki-about-h3" style="margin-top: 1.5rem;">Herramientas Material</h2>
+            <p class="wiki-p" style="margin-bottom: 1rem; font-size: 0.875rem; color: #64748b;">Genera temas personalizados y exporta tokens para tu proyecto.</p>
+            <div class="wiki-kits-grid" style="margin-bottom: 2rem;">
+              <a href="https://material-foundation.github.io/material-theme-builder/" target="_blank" rel="noopener" class="wiki-kit-card" title="Material Theme Builder — Crear temas M3">
+                <div class="wiki-kit-cover wiki-kit-cover-icon" style="background: linear-gradient(135deg, #6750A4 0%, #7F67BE 100%); display: flex; align-items: center; justify-content: center; aspect-ratio: 16/10;">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="white" opacity="0.9"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
+                </div>
+                <span class="wiki-kit-title">Material Theme Builder</span>
+                <span class="wiki-kit-meta">material-foundation · GitHub</span>
+                <span class="wiki-kit-dates">Dynamic color, paletas HCT, export a código</span>
+              </a>
+            </div>
+
             <h2 class="wiki-about-h3" style="margin-top: 1.5rem;">UI Kits oficiales</h2>
             <p class="wiki-p" style="margin-bottom: 1rem; font-size: 0.875rem; color: #64748b;">Descarga los kits completos en Figma.</p>
             <div class="wiki-kits-grid">
@@ -307,6 +333,8 @@
 
           <p class="wiki-about-lead">Un repo para comparar componentes de iOS y Material Design y entender qué cambia, qué se parece y qué no entre ambas plataformas.</p>
 
+          <p class="wiki-about-p">Proyecto creado para dar soporte al curso <strong>Diseño y desarrollo de UI para apps</strong> de <a href="https://www.shiftr.pro/" target="_blank" rel="noopener" class="wiki-about-link">Shift+R</a>.</p>
+
           <p class="wiki-about-p">El objetivo es documentar las correspondencias entre las <a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank" rel="noopener" class="wiki-about-link">Human Interface Guidelines</a> y <a href="https://m3.material.io/" target="_blank" rel="noopener" class="wiki-about-link">Material Design 3</a>, ofreciendo niveles de coincidencia, enlaces a documentación oficial, SDKs y kits de Figma para diseñadores y desarrolladores que trabajan en múltiples plataformas.</p>
 
           <p class="wiki-about-p">Todas las correspondencias han sido investigadas y validadas al 100% de forma manual frente a la documentación oficial de HIG y M3.</p>
@@ -319,7 +347,7 @@
           </div>
 
           <div class="wiki-about-kits">
-            <h3 class="wiki-about-h3">UI Kits oficiales</h3>
+            <h3 class="wiki-about-h3 wiki-about-h3-highlight"><span class="hero-title-highlight hero-title-highlight-ios">UI Kits</span> <span class="hero-title-highlight hero-title-highlight-md">oficiales</span></h3>
             <p class="wiki-about-p" style="margin-bottom: 1rem;">Descarga los kits completos en Figma.</p>
             <div class="wiki-kits-grid">
               <a href="https://www.figma.com/community/file/1035203688168086460" target="_blank" rel="noopener" class="wiki-kit-card">
@@ -349,14 +377,14 @@
           </div>
 
           <div class="wiki-about-credits">
-            <h3 class="wiki-about-h3">Inspiraciones y créditos</h3>
+            <h3 class="wiki-about-h3 wiki-about-h3-highlight"><span class="hero-title-highlight hero-title-highlight-ios">Inspiraciones</span> <span class="hero-title-highlight hero-title-highlight-md">y créditos</span></h3>
             <p class="wiki-about-p">Inspirado por la claridad de las guías oficiales de diseño y la necesidad de herramientas de referencia multiplataforma.</p>
             <p class="wiki-about-p">Construido con vanilla JS, Tailwind CSS y Cursor.</p>
             <p class="wiki-about-p" style="margin-bottom: 0;">Gracias a Apple y Google por las Human Interface Guidelines y la documentación de Material Design.</p>
           </div>
 
           <div class="wiki-about-madeby">
-            <h3 class="wiki-about-h3">Hecho por</h3>
+            <h3 class="wiki-about-h3 wiki-about-h3-highlight"><span class="hero-title-highlight hero-title-highlight-ios">Hecho</span> <span class="hero-title-highlight hero-title-highlight-md">por</span></h3>
             <div class="wiki-about-shiftr">
               <img src="assets/shift-r-logo.png" alt="Shift+R" class="wiki-about-shiftr-logo" width="40" height="40" />
               <p class="wiki-about-p" style="margin-bottom: 0;">Una escuela especializada en Design Systems desde 2021, enseñando tecnologías emergentes como MCPs, herramientas de IA para diseñadores y prácticas de diseño de vanguardia, incluyendo UI para apps de iOS y Android.</p>
@@ -628,6 +656,10 @@
       a.classList.toggle("active", activeRoute === "/about");
     });
 
+    document.querySelectorAll(".wiki-sidebar-about-link").forEach((a) => {
+      a.classList.toggle("active", activeRoute === "/about");
+    });
+
     document.querySelectorAll(".header-home").forEach((a) => {
       a.classList.toggle("active", activeRoute === "/");
     });
@@ -640,35 +672,49 @@
     document.getElementById("sidebar")?.classList.toggle("open");
   });
 
-  const FONT_KEY = "face2face-font";
+  const THEME_KEY = "face2face-theme";
   const body = document.body;
 
-  function applyFont(font) {
-    body.setAttribute("data-font", font);
-    document.querySelectorAll(".font-toggle-btn").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.font === font);
+  function applyTheme(theme) {
+    body.setAttribute("data-theme", theme);
+    document.querySelectorAll(".theme-toggle-btn").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.theme === theme);
     });
     try {
-      localStorage.setItem(FONT_KEY, font);
+      localStorage.setItem(THEME_KEY, theme);
     } catch (_) {}
   }
 
-  const stored = localStorage.getItem(FONT_KEY);
-  if (stored === "sf" || stored === "roboto") {
-    applyFont(stored);
+  const storedTheme = localStorage.getItem(THEME_KEY);
+  const normalizedTheme = storedTheme === "liquid" ? "default" : storedTheme;
+  if (normalizedTheme === "default" || normalizedTheme === "material" || normalizedTheme === "tahoe") {
+    applyTheme(normalizedTheme);
   } else {
-    document.querySelector(".font-toggle-btn[data-font='sf']")?.classList.add("active");
+    document.querySelector(".theme-toggle-btn[data-theme='default']")?.classList.add("active");
   }
 
-  document.querySelectorAll(".font-toggle-btn").forEach((btn) => {
-    btn.addEventListener("click", () => applyFont(btn.dataset.font));
+  document.querySelectorAll(".theme-toggle-btn").forEach((btn) => {
+    btn.addEventListener("click", () => applyTheme(btn.dataset.theme));
   });
 
-  document.querySelectorAll(".wiki-nav-link, .header-home, .header-about").forEach((a) => {
+  document.querySelectorAll(".wiki-nav-link, .header-home, .header-about, .wiki-sidebar-about-link").forEach((a) => {
     a.addEventListener("click", () => {
       if (window.matchMedia("(max-width: 1024px)").matches) {
         document.getElementById("sidebar")?.classList.remove("open");
       }
     });
+  });
+
+  document.getElementById("material-fab")?.addEventListener("click", (e) => {
+    if (body.getAttribute("data-theme") !== "material") return;
+    if (e.detail === 2) {
+      const main = document.querySelector(".wiki-main");
+      if (main) {
+        main.classList.add("page-shake");
+        main.addEventListener("animationend", () => main.classList.remove("page-shake"), { once: true });
+      }
+      return;
+    }
+    window.__MATERIAL_COLOR_PICKER__?.open?.();
   });
 })();

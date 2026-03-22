@@ -1,0 +1,1220 @@
+/*
+ * MacTahoe GTK — port web (claro, acento #0088FF).
+ * Referencia visual: ventanas tipo Control Center (squircle + vidrio).
+ * Repo GTK: https://github.com/vinceliuice/MacTahoe-gtk-theme
+ *
+ * Squircle: `corner-shape: squircle` (navegadores compatibles) + radio generoso.
+ * Cristal: capas semitransparentes + backdrop-filter + borde claro “luz en el canto”.
+ * Fondo: wallpaper estilo Apple (assets/tahoe-wallpaper.png) en ::before + velo; animación Ken Burns suave; sin animación si prefers-reduced-motion.
+ * Liquid glass (#glass-distortion): header, sidebar + home/cards/botones (footer = barra sólida legible).
+ */
+
+body[data-theme="tahoe"] {
+  --dot-color: transparent;
+  font-family: Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Gana a utilidades Tailwind en body (text-slate-900, etc.) */
+  color: var(--tahoe-fg) !important;
+
+  --tahoe-fg: #242424;
+  --tahoe-text: #363636;
+  --tahoe-alt: #424242;
+  --tahoe-hint: #565656;
+  --tahoe-header-fg: #575757;
+  --tahoe-accent: #0088ff;
+
+  /* Radios squircle (grandes = más parecido a macOS; pills siguen redondos) */
+  --tahoe-sq-window: 30px;
+  --tahoe-sq-card: 22px;
+  --tahoe-sq-inner: 16px;
+  --tahoe-sq-control: 12px;
+  --tahoe-pill: 9999px;
+
+  /* Vidrio */
+  --tahoe-blur-heavy: blur(28px) saturate(1.45);
+  --tahoe-blur-mid: blur(18px) saturate(1.28);
+  --tahoe-blur-light: blur(14px) saturate(1.15);
+  --tahoe-glass-veil: rgba(255, 255, 255, 0.42);
+  --tahoe-glass-veil-strong: rgba(255, 255, 255, 0.58);
+  --tahoe-glass-tint: rgba(252, 252, 254, 0.52);
+  --tahoe-edge-light: rgba(255, 255, 255, 0.48);
+  --tahoe-edge-mute: rgba(0, 0, 0, 0.06);
+  /* Capas tipo .liquidGlass-shine + profundidad suave */
+  --tahoe-shine-inset:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.62),
+    inset 2px 2px 1px 0 rgba(255, 255, 255, 0.45),
+    inset -1px -1px 1px 1px rgba(255, 255, 255, 0.38);
+  --tahoe-shadow-soft: 0 6px 6px rgba(0, 0, 0, 0.14), 0 0 28px rgba(0, 0, 0, 0.09);
+  --tahoe-transition-liquid: box-shadow 0.45s cubic-bezier(0.175, 0.885, 0.32, 2.2), transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 2.2),
+    border-color 0.35s ease, background-color 0.35s ease;
+
+  /* Zonas con texto: más blanco que el vidrio decorativo; sigue leyéndose como glass */
+  --tahoe-glass-read: rgba(255, 255, 255, 0.86);
+  --tahoe-glass-read-mid: rgba(255, 255, 255, 0.8);
+  --tahoe-glass-read-soft: rgba(255, 255, 255, 0.74);
+  --tahoe-glass-read-table: rgba(255, 255, 255, 0.78);
+  --tahoe-blur-read: blur(14px) saturate(1.55);
+
+  --tahoe-entry-fill: rgba(255, 255, 255, 0.35);
+  --tahoe-btn-fill: rgba(255, 255, 255, 0.32);
+  --tahoe-btn-hover: rgba(255, 255, 255, 0.5);
+
+  --sidebar-bg: var(--tahoe-glass-tint);
+  --sidebar-border: var(--tahoe-edge-mute);
+  /* Más contraste sobre vidrio / wallpaper */
+  --sidebar-text: var(--tahoe-text);
+  --sidebar-text-active: var(--tahoe-fg);
+  --sidebar-accent: var(--tahoe-accent);
+  --content-bg: transparent;
+  --content-border: var(--tahoe-edge-mute);
+
+  /* Base; el wallpaper “liquid glass” está en ::before (fijo, detrás del contenido) */
+  background-color: #032f4a;
+}
+
+/* Wallpaper tipo Apple (ondas azules); velos ligeros para contraste con paneles de vidrio */
+body[data-theme="tahoe"]::before {
+  content: "";
+  position: fixed;
+  inset: -6%;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #042d55;
+  background-image:
+    radial-gradient(ellipse 95% 90% at 50% 45%, transparent 25%, rgba(0, 25, 55, 0.28) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 45%, rgba(0, 35, 70, 0.18) 100%),
+    url("assets/tahoe-wallpaper.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform-origin: 50% 42%;
+  filter: url(#tahoe-glass-distortion);
+  animation: tahoe-liquid-drift 32s ease-in-out infinite alternate, tahoe-bg-pan 72s linear infinite;
+}
+
+@keyframes tahoe-liquid-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-1.2%, 1%) scale(1.04);
+  }
+  100% {
+    transform: translate(1.2%, -0.8%) scale(1.07);
+  }
+}
+
+@keyframes tahoe-bg-pan {
+  0% {
+    background-position: center center, center center, 48% 42%;
+  }
+  33% {
+    background-position: center center, center center, 55% 58%;
+  }
+  66% {
+    background-position: center center, center center, 42% 55%;
+  }
+  100% {
+    background-position: center center, center center, 48% 42%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-theme="tahoe"]::before {
+    animation: none;
+    transform: none;
+    filter: none;
+  }
+}
+
+body[data-theme="tahoe"] .wiki-header {
+  isolation: isolate;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.12), 0 0 22px rgba(0, 0, 0, 0.07);
+  transition: var(--tahoe-transition-liquid);
+}
+
+body[data-theme="tahoe"] .wiki-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  filter: url(#glass-distortion);
+  isolation: isolate;
+}
+
+body[data-theme="tahoe"] .wiki-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 1px 1px rgba(255, 255, 255, 0.42);
+}
+
+body[data-theme="tahoe"] .wiki-header > * {
+  position: relative;
+  z-index: 2;
+}
+
+body[data-theme="tahoe"] .header-home-text {
+  color: var(--tahoe-fg);
+  font-weight: 600;
+}
+
+body[data-theme="tahoe"] .header-home-subtitle {
+  color: var(--tahoe-header-fg);
+}
+
+body[data-theme="tahoe"] .header-about {
+  color: var(--tahoe-header-fg);
+  font-weight: 500;
+}
+
+body[data-theme="tahoe"] .header-about:hover,
+body[data-theme="tahoe"] .header-about.active {
+  color: var(--tahoe-accent);
+}
+
+body[data-theme="tahoe"] .theme-toggle {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-inner);
+  padding: 2px;
+  box-shadow: var(--tahoe-shine-inset);
+}
+
+body[data-theme="tahoe"] .theme-toggle-btn {
+  color: var(--tahoe-text);
+  border-radius: calc(var(--tahoe-sq-inner) - 3px);
+  font-weight: 500;
+}
+
+body[data-theme="tahoe"] .theme-toggle-btn:hover {
+  color: var(--tahoe-fg);
+  background: var(--tahoe-btn-hover);
+}
+
+body[data-theme="tahoe"] .theme-toggle-btn.active {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--tahoe-fg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), var(--tahoe-shine-inset);
+}
+
+body[data-theme="tahoe"] .header-search-input {
+  background: var(--tahoe-entry-fill);
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-pill);
+  color: var(--tahoe-text);
+  box-shadow: var(--tahoe-shine-inset);
+}
+
+/* Sidebar: sin radio propio — solo el squircle del marco (.wiki-sidebar + overflow) */
+body[data-theme="tahoe"] .wiki-sidebar .wiki-nav-search {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: 0;
+  color: var(--tahoe-fg);
+  box-shadow: var(--tahoe-shine-inset);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  body[data-theme="tahoe"] .wiki-sidebar .wiki-nav-search,
+  body[data-theme="tahoe"] .header-search-input {
+    -webkit-backdrop-filter: var(--tahoe-blur-light);
+    backdrop-filter: var(--tahoe-blur-light);
+  }
+}
+
+body[data-theme="tahoe"] .wiki-sidebar .wiki-nav-search::placeholder {
+  color: var(--tahoe-alt);
+  opacity: 1;
+}
+
+body[data-theme="tahoe"] .header-search-input::placeholder {
+  color: var(--tahoe-hint);
+}
+
+body[data-theme="tahoe"] .wiki-layout {
+  padding: 12px 14px 12px 12px;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+body[data-theme="tahoe"] .wiki-sidebar {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--tahoe-sq-window);
+  margin-right: 0;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+  background: transparent;
+  transition: var(--tahoe-transition-liquid);
+}
+
+body[data-theme="tahoe"] .wiki-sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  filter: url(#glass-distortion);
+  isolation: isolate;
+}
+
+body[data-theme="tahoe"] .wiki-sidebar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  /* Tinte un poco más denso: texto más legible sobre el blur */
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 2px 2px 1px 0 rgba(255, 255, 255, 0.42),
+    inset -1px -1px 1px 1px rgba(255, 255, 255, 0.32);
+}
+
+body[data-theme="tahoe"] .wiki-sidebar-inner {
+  position: relative;
+  z-index: 2;
+}
+
+body[data-theme="tahoe"] .wiki-sidebar:hover {
+  box-shadow: var(--tahoe-shine-inset), 0 8px 10px rgba(0, 0, 0, 0.15), 0 0 36px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="tahoe"] .wiki-main {
+  border-radius: var(--tahoe-sq-window);
+  border: 1px solid var(--tahoe-edge-light);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+  background: var(--tahoe-glass-read);
+  transition: var(--tahoe-transition-liquid), scrollbar-color 0.2s ease;
+  /* Área de scroll: sin filtro liquid (#glass-distortion) */
+  /* Misma barra minimalista que .wiki-sidebar-inner (Figma-like) */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  scroll-behavior: smooth;
+}
+
+body[data-theme="tahoe"] .wiki-main:hover {
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+body[data-theme="tahoe"] .wiki-main::-webkit-scrollbar {
+  width: 3px;
+}
+
+body[data-theme="tahoe"] .wiki-main::-webkit-scrollbar-button {
+  display: none;
+}
+
+body[data-theme="tahoe"] .wiki-main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body[data-theme="tahoe"] .wiki-main::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+body[data-theme="tahoe"] .wiki-main:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+body[data-theme="tahoe"] .wiki-main:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="tahoe"] .wiki-main::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+body[data-theme="tahoe"] .wiki-main:hover {
+  box-shadow: var(--tahoe-shine-inset), 0 8px 10px rgba(0, 0, 0, 0.15), 0 0 36px rgba(0, 0, 0, 0.1);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  body[data-theme="tahoe"] .wiki-main {
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: var(--tahoe-blur-read);
+    backdrop-filter: var(--tahoe-blur-read);
+  }
+}
+
+/*
+ * Móvil (tema iOS / Tahoe): mismo criterio que Default + Material.
+ * - Drawer: sin liquid SVG en fixed (bugs WebKit + contraste); panel sólido + sombra.
+ * - Header: sin capas liquid; barra clara estable como Material Top App Bar.
+ */
+@media (max-width: 1024px) {
+  body[data-theme="tahoe"] .wiki-layout {
+    padding: 0;
+    gap: 0;
+    min-width: 0;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Móvil: sin wallpaper ni fondo azul de escritorio; el contenido no va sobre “cielo” animado */
+  body[data-theme="tahoe"] {
+    background-color: #eef1f6 !important;
+    background-image: none !important;
+  }
+
+  body[data-theme="tahoe"]::before {
+    display: none !important;
+    content: none !important;
+    animation: none !important;
+    filter: none !important;
+  }
+
+  /* Header: mismas medidas que Default/Material (--shell-*); solo estilo iOS móvil */
+  body[data-theme="tahoe"] .wiki-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  body[data-theme="tahoe"] .wiki-header::before,
+  body[data-theme="tahoe"] .wiki-header::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body[data-theme="tahoe"] .wiki-header > * {
+    position: relative;
+    z-index: auto;
+  }
+
+  body[data-theme="tahoe"] .theme-toggle::before,
+  body[data-theme="tahoe"] .theme-toggle::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body[data-theme="tahoe"] .theme-toggle {
+    background: #f3f4f6 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    isolation: auto;
+  }
+
+  body[data-theme="tahoe"] .sidebar-toggle::before,
+  body[data-theme="tahoe"] .sidebar-toggle::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body[data-theme="tahoe"] .sidebar-toggle {
+    position: static;
+    top: auto;
+    left: auto;
+    z-index: 1;
+    grid-column: 1;
+    grid-row: 1;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
+    isolation: auto;
+  }
+
+  body[data-theme="tahoe"] .header-home {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  body[data-theme="tahoe"] .header-toggles {
+    grid-column: 3;
+    justify-self: end;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  body[data-theme="tahoe"] .wiki-sidebar {
+    position: fixed !important;
+    left: 0;
+    top: var(--shell-header-min-height);
+    bottom: 0;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    width: 284px;
+    max-width: min(284px, calc(100vw - 1rem));
+    flex-shrink: 0;
+    isolation: auto;
+    border-radius: 0 18px 18px 0;
+    border: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.12);
+    background: rgba(252, 252, 254, 0.98) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(1.15);
+    backdrop-filter: blur(20px) saturate(1.15);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body[data-theme="tahoe"] .wiki-sidebar.open {
+    transform: translateX(0);
+  }
+
+  body[data-theme="tahoe"] .wiki-sidebar::before,
+  body[data-theme="tahoe"] .wiki-sidebar::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body[data-theme="tahoe"] .wiki-sidebar-inner {
+    position: relative;
+    z-index: auto;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body[data-theme="tahoe"] .wiki-sidebar:hover {
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.12);
+  }
+
+  body[data-theme="tahoe"] .wiki-main {
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    min-height: 0;
+  }
+
+  body[data-theme="tahoe"] .wiki-content {
+    margin-block: 0.75rem 1rem;
+    margin-inline: auto;
+    padding-block: 0.5rem 2rem;
+    padding-inline-start: max(1rem, env(safe-area-inset-left, 0px));
+    padding-inline-end: max(1rem, env(safe-area-inset-right, 0px));
+    max-width: min(900px, 100%);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  body[data-theme="tahoe"] .wiki-footer {
+    min-width: 0;
+    /* padding footer: --shell-footer-* (styles.css) */
+  }
+
+  body[data-theme="tahoe"] .wiki-footer-inner {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  body[data-theme="tahoe"] .wiki-footer-line {
+    max-width: 100%;
+    text-wrap: balance;
+  }
+}
+
+/*
+ * Footer Tahoe: barra opaca (sin liquid). El vidrio + texto heredado de Tailwind
+ * (slate-900) sobre wallpaper azul era ilegible.
+ */
+body[data-theme="tahoe"] .wiki-footer {
+  position: relative;
+  isolation: isolate;
+  background: #e8edf4 !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.6);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+body[data-theme="tahoe"] .wiki-footer::before,
+body[data-theme="tahoe"] .wiki-footer::after {
+  content: none !important;
+  display: none !important;
+}
+
+body[data-theme="tahoe"] .wiki-footer > * {
+  position: relative;
+  z-index: auto;
+}
+
+body[data-theme="tahoe"] .wiki-footer-inner {
+  color: #475569 !important;
+}
+
+body[data-theme="tahoe"] .wiki-footer-line {
+  color: #475569 !important;
+}
+
+body[data-theme="tahoe"] .wiki-footer-line strong {
+  color: #0f172a !important;
+  font-weight: 600;
+}
+
+body[data-theme="tahoe"] .wiki-footer-link {
+  color: #0369a1 !important;
+  text-decoration-color: rgba(3, 105, 161, 0.45) !important;
+}
+
+body[data-theme="tahoe"] .wiki-footer-link:hover {
+  color: #0088ff !important;
+  text-decoration-color: #0088ff !important;
+}
+
+body[data-theme="tahoe"] .wiki-footer-link strong {
+  color: inherit !important;
+}
+
+body[data-theme="tahoe"] .wiki-footer-dot {
+  color: #64748b !important;
+}
+
+body[data-theme="tahoe"] .wiki-footer-logo {
+  opacity: 1;
+  filter: none;
+}
+
+body[data-theme="tahoe"] .wiki-nav-category-title {
+  color: var(--tahoe-alt);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-bottom-color: var(--tahoe-edge-mute);
+}
+
+body[data-theme="tahoe"] .wiki-nav-category + .wiki-nav-category {
+  border-top-color: var(--tahoe-edge-mute);
+}
+
+body[data-theme="tahoe"] .wiki-sidebar .wiki-nav-toggle,
+body[data-theme="tahoe"] .wiki-sidebar .wiki-nav-count {
+  color: var(--tahoe-alt);
+}
+
+body[data-theme="tahoe"] .wiki-sidebar .wiki-nav-no-results {
+  color: var(--tahoe-alt);
+}
+
+body[data-theme="tahoe"] .wiki-sidebar .wiki-nav-coming-label {
+  color: var(--tahoe-text);
+}
+
+body[data-theme="tahoe"] .wiki-sidebar .wiki-nav-badge-progress {
+  color: var(--tahoe-alt);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+body[data-theme="tahoe"] .wiki-nav-link {
+  color: var(--tahoe-text);
+  border-radius: 0;
+}
+
+body[data-theme="tahoe"] .wiki-nav-link:hover:not(.active) {
+  background: var(--tahoe-btn-hover);
+  color: var(--tahoe-fg);
+}
+
+body[data-theme="tahoe"] .wiki-nav-link.active[data-platform="ios"] {
+  color: #007aff;
+  background: rgba(0, 122, 255, 0.14);
+}
+
+body[data-theme="tahoe"] .wiki-nav-link.active[data-platform="md"] {
+  color: #018786;
+  background: rgba(1, 135, 134, 0.14);
+}
+
+body[data-theme="tahoe"] .wiki-nav-link.active[data-platform="both"] {
+  color: var(--tahoe-accent);
+  background: rgba(0, 136, 255, 0.14);
+}
+
+body[data-theme="tahoe"] .wiki-nav-link-pair.active .nav-label-ios {
+  color: #007aff;
+}
+
+body[data-theme="tahoe"] .wiki-nav-link-pair.active .nav-label-md {
+  color: #018786;
+}
+
+body[data-theme="tahoe"] .wiki-nav-toggle:hover {
+  background: var(--tahoe-btn-hover);
+}
+
+/* Liquid glass: blur + SVG en ::before, tinte en ::after (z-index:-1 → el texto queda encima) */
+body[data-theme="tahoe"] .wiki-hero-card::before,
+body[data-theme="tahoe"] .wiki-hero-block::before,
+body[data-theme="tahoe"] .wiki-legend-table-surface::before,
+body[data-theme="tahoe"] .theme-toggle::before,
+body[data-theme="tahoe"] .wiki-hero-btn-secondary::before,
+body[data-theme="tahoe"] .comp-card::before,
+body[data-theme="tahoe"] .orphan-card::before,
+body[data-theme="tahoe"] .wiki-kit-card::before,
+body[data-theme="tahoe"] .wiki-about-block::before,
+body[data-theme="tahoe"] .comp-back::before,
+body[data-theme="tahoe"] .sidebar-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  filter: url(#glass-distortion);
+  isolation: isolate;
+}
+
+body[data-theme="tahoe"] .wiki-hero-card::after,
+body[data-theme="tahoe"] .wiki-hero-block::after,
+body[data-theme="tahoe"] .wiki-legend-table-surface::after,
+body[data-theme="tahoe"] .theme-toggle::after,
+body[data-theme="tahoe"] .wiki-hero-btn-secondary::after,
+body[data-theme="tahoe"] .comp-card::after,
+body[data-theme="tahoe"] .orphan-card::after,
+body[data-theme="tahoe"] .wiki-kit-card::after,
+body[data-theme="tahoe"] .wiki-about-block::after,
+body[data-theme="tahoe"] .comp-back::after,
+body[data-theme="tahoe"] .sidebar-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 2px 2px 1px 0 rgba(255, 255, 255, 0.48),
+    inset -1px -1px 1px 1px rgba(255, 255, 255, 0.38);
+}
+
+body[data-theme="tahoe"] .wiki-hero-block-accent::after {
+  background: rgba(0, 136, 255, 0.2);
+  box-shadow:
+    inset 2px 2px 1px 0 rgba(255, 255, 255, 0.35),
+    inset -1px -1px 1px 1px rgba(0, 136, 255, 0.12);
+}
+
+body[data-theme="tahoe"] .wiki-hero-block:hover::after {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+body[data-theme="tahoe"] .wiki-hero-block-accent:hover::after {
+  background: rgba(0, 136, 255, 0.3);
+}
+
+body[data-theme="tahoe"] .wiki-hero-btn-secondary:hover::after {
+  background: rgba(255, 255, 255, 0.38);
+}
+
+body[data-theme="tahoe"] .comp-back:hover::after {
+  background: rgba(255, 255, 255, 0.38);
+}
+
+/* Hero y cards: vidrio con liquid (scroll en .wiki-main) */
+body[data-theme="tahoe"] .wiki-hero-card {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-card);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+  overflow: hidden;
+  transition: var(--tahoe-transition-liquid);
+}
+
+body[data-theme="tahoe"] .wiki-hero-card:hover {
+  box-shadow: var(--tahoe-shine-inset), 0 8px 10px rgba(0, 0, 0, 0.14), 0 0 34px rgba(0, 0, 0, 0.09);
+}
+
+body[data-theme="tahoe"] .wiki-hero-title {
+  color: var(--tahoe-fg);
+}
+
+body[data-theme="tahoe"] .wiki-hero-sub,
+body[data-theme="tahoe"] .wiki-hero-desc {
+  color: var(--tahoe-alt);
+}
+
+body[data-theme="tahoe"] .wiki-hero-block {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-inner);
+  box-shadow: var(--tahoe-shine-inset);
+  transition: var(--tahoe-transition-liquid);
+}
+
+body[data-theme="tahoe"] .wiki-hero-block-accent {
+  background: transparent;
+  border-color: rgba(0, 136, 255, 0.22);
+}
+
+body[data-theme="tahoe"] .wiki-hero-block:hover,
+body[data-theme="tahoe"] .wiki-hero-block-accent:hover {
+  background: transparent !important;
+}
+
+/* Misma pieza que en home: .wiki-hero-btn + primario; About usa solo .wiki-about-cta */
+body[data-theme="tahoe"] .wiki-hero-btn-primary,
+body[data-theme="tahoe"] .wiki-about-cta {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  text-decoration: none;
+  border: none;
+  background: linear-gradient(180deg, #1a9fff 0%, var(--tahoe-accent) 100%) !important;
+  color: #fff !important;
+  border-radius: var(--tahoe-sq-inner);
+  box-shadow: var(--tahoe-shine-inset), 0 2px 10px rgba(0, 136, 255, 0.35);
+  transition: color var(--transition), box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+body[data-theme="tahoe"] .wiki-hero-btn-primary:hover,
+body[data-theme="tahoe"] .wiki-about-cta:hover {
+  color: #fff !important;
+  filter: brightness(1.06);
+  box-shadow: var(--tahoe-shine-inset), 0 4px 16px rgba(0, 136, 255, 0.42);
+}
+
+body[data-theme="tahoe"] .wiki-hero-btn-secondary {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  text-decoration: none;
+  background: transparent;
+  color: var(--tahoe-fg) !important;
+  border: 1px solid var(--tahoe-edge-mute);
+  border-radius: var(--tahoe-sq-inner);
+  box-shadow: var(--tahoe-shine-inset);
+  transition: color var(--transition), border-color var(--transition), box-shadow 0.2s ease;
+}
+
+body[data-theme="tahoe"] .wiki-hero-btn-secondary:hover {
+  background: transparent !important;
+  color: var(--tahoe-fg) !important;
+  border-color: var(--tahoe-edge-light);
+  box-shadow: var(--tahoe-shine-inset), 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+body[data-theme="tahoe"] .wiki-legend-table-surface {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-card);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+  overflow: hidden;
+}
+
+body[data-theme="tahoe"] .wiki-legend-matrix tbody th {
+  background: var(--tahoe-glass-read-table);
+  border-color: var(--tahoe-edge-mute);
+}
+
+body[data-theme="tahoe"] .wiki-legend-matrix tbody td {
+  background: var(--tahoe-glass-read-soft);
+  border-color: var(--tahoe-edge-mute);
+  color: var(--tahoe-text);
+}
+
+body[data-theme="tahoe"] .comp-card,
+body[data-theme="tahoe"] .orphan-card {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-card);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+  overflow: hidden;
+  transition: var(--tahoe-transition-liquid);
+}
+
+body[data-theme="tahoe"] .comp-card:hover,
+body[data-theme="tahoe"] .orphan-card:hover {
+  box-shadow: var(--tahoe-shine-inset), 0 8px 12px rgba(0, 0, 0, 0.14), 0 0 32px rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="tahoe"] .comp-card-title,
+body[data-theme="tahoe"] .comp-hero-title {
+  color: var(--tahoe-fg);
+}
+
+body[data-theme="tahoe"] .comp-card-meta,
+body[data-theme="tahoe"] .comp-desc {
+  color: var(--tahoe-alt);
+}
+
+body[data-theme="tahoe"] .comp-card-btn {
+  background: var(--tahoe-btn-fill);
+  border: 1px solid var(--tahoe-edge-light);
+  color: var(--tahoe-accent);
+  border-radius: var(--tahoe-sq-inner);
+  box-shadow: var(--tahoe-shine-inset);
+}
+
+body[data-theme="tahoe"] .comp-card-btn:hover {
+  background: var(--tahoe-btn-hover);
+}
+
+/* Mismo lenguaje que .wiki-hero-btn-secondary (About: ← Volver) */
+body[data-theme="tahoe"] .comp-back {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  margin-bottom: 1.75rem;
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-mute);
+  color: var(--tahoe-fg) !important;
+  border-radius: var(--tahoe-sq-inner);
+  box-shadow: var(--tahoe-shine-inset);
+  transition: color var(--transition), border-color var(--transition), box-shadow 0.2s ease;
+}
+
+body[data-theme="tahoe"] .comp-back:hover {
+  color: var(--tahoe-fg) !important;
+  border-color: var(--tahoe-edge-light);
+  box-shadow: var(--tahoe-shine-inset), 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* “Para profundizar”: vidrio más marcado que el cuerpo de la ficha */
+body[data-theme="tahoe"] .comp-refs-sidebar {
+  padding: 1.125rem 1.25rem 1.3rem;
+  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: var(--tahoe-sq-card);
+  box-shadow:
+    var(--tahoe-shine-inset),
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 6px 6px rgba(0, 0, 0, 0.12),
+    0 18px 50px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: var(--tahoe-transition-liquid);
+}
+
+body[data-theme="tahoe"] .comp-refs-sidebar:hover {
+  box-shadow:
+    var(--tahoe-shine-inset),
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 8px 10px rgba(0, 0, 0, 0.14),
+    0 22px 56px rgba(0, 0, 0, 0.12);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  body[data-theme="tahoe"] .comp-refs-sidebar {
+    background: rgba(255, 255, 255, 0.34);
+    -webkit-backdrop-filter: blur(32px) saturate(1.65);
+    backdrop-filter: blur(32px) saturate(1.65);
+  }
+}
+
+body[data-theme="tahoe"] .comp-refs-title {
+  color: var(--tahoe-hint);
+}
+
+body[data-theme="tahoe"] .comp-refs-desc {
+  color: var(--tahoe-text);
+}
+
+body[data-theme="tahoe"] .comp-ref-item {
+  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: var(--tahoe-sq-control);
+  box-shadow: var(--tahoe-shine-inset);
+  transition: var(--tahoe-transition-liquid);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  body[data-theme="tahoe"] .comp-ref-item {
+    background: rgba(255, 255, 255, 0.22);
+    -webkit-backdrop-filter: blur(16px) saturate(1.35);
+    backdrop-filter: blur(16px) saturate(1.35);
+  }
+}
+
+body[data-theme="tahoe"] .comp-ref-item:hover {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.58);
+  box-shadow: var(--tahoe-shine-inset), 0 4px 18px rgba(0, 0, 0, 0.07);
+}
+
+body[data-theme="tahoe"] .comp-ref-item-title {
+  color: var(--tahoe-fg);
+}
+
+body[data-theme="tahoe"] .figma-preview {
+  background: var(--tahoe-glass-read);
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-card);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+  overflow: hidden;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  body[data-theme="tahoe"] .figma-preview {
+    background: rgba(255, 255, 255, 0.84);
+    -webkit-backdrop-filter: var(--tahoe-blur-read);
+    backdrop-filter: var(--tahoe-blur-read);
+  }
+}
+
+body[data-theme="tahoe"] .wiki-about-block {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-card);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+  overflow: hidden;
+}
+
+body[data-theme="tahoe"] .wiki-kit-card {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-card);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+  overflow: hidden;
+}
+
+body[data-theme="tahoe"] .sidebar-toggle {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  background: transparent;
+  border: 1px solid var(--tahoe-edge-light);
+  border-radius: var(--tahoe-sq-inner);
+  box-shadow: var(--tahoe-shine-inset), var(--tahoe-shadow-soft);
+}
+
+body[data-theme="tahoe"] .material-fab {
+  display: none !important;
+}
+
+body[data-theme="tahoe"] .wiki-blob-1 {
+  background: rgba(0, 136, 255, 0.18);
+}
+
+body[data-theme="tahoe"] .wiki-blob-2 {
+  background: rgba(0, 136, 255, 0.1);
+}
+
+body[data-theme="tahoe"] .wiki-blob-3 {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Toggle compacto en móvil: styles.css @media (max-width: 1024px) */
+
+/* Squircle real donde el motor lo permita (refuerza el radio grande) */
+@supports (corner-shape: squircle) {
+  body[data-theme="tahoe"] .wiki-sidebar,
+  body[data-theme="tahoe"] .wiki-sidebar::before,
+  body[data-theme="tahoe"] .wiki-sidebar::after,
+  body[data-theme="tahoe"] .wiki-main,
+  body[data-theme="tahoe"] .wiki-hero-card,
+  body[data-theme="tahoe"] .wiki-hero-card::before,
+  body[data-theme="tahoe"] .wiki-hero-card::after,
+  body[data-theme="tahoe"] .wiki-hero-block,
+  body[data-theme="tahoe"] .wiki-hero-block::before,
+  body[data-theme="tahoe"] .wiki-hero-block::after,
+  body[data-theme="tahoe"] .wiki-legend-table-surface,
+  body[data-theme="tahoe"] .wiki-legend-table-surface::before,
+  body[data-theme="tahoe"] .wiki-legend-table-surface::after,
+  body[data-theme="tahoe"] .comp-card,
+  body[data-theme="tahoe"] .comp-card::before,
+  body[data-theme="tahoe"] .comp-card::after,
+  body[data-theme="tahoe"] .orphan-card,
+  body[data-theme="tahoe"] .orphan-card::before,
+  body[data-theme="tahoe"] .orphan-card::after,
+  body[data-theme="tahoe"] .comp-refs-sidebar,
+  body[data-theme="tahoe"] .figma-preview,
+  body[data-theme="tahoe"] .wiki-about-block,
+  body[data-theme="tahoe"] .wiki-about-block::before,
+  body[data-theme="tahoe"] .wiki-about-block::after,
+  body[data-theme="tahoe"] .wiki-kit-card,
+  body[data-theme="tahoe"] .wiki-kit-card::before,
+  body[data-theme="tahoe"] .wiki-kit-card::after,
+  body[data-theme="tahoe"] .sidebar-toggle,
+  body[data-theme="tahoe"] .sidebar-toggle::before,
+  body[data-theme="tahoe"] .sidebar-toggle::after,
+  body[data-theme="tahoe"] .theme-toggle,
+  body[data-theme="tahoe"] .theme-toggle::before,
+  body[data-theme="tahoe"] .theme-toggle::after,
+  body[data-theme="tahoe"] .wiki-hero-btn-secondary,
+  body[data-theme="tahoe"] .wiki-hero-btn-secondary::before,
+  body[data-theme="tahoe"] .wiki-hero-btn-secondary::after,
+  body[data-theme="tahoe"] .comp-back,
+  body[data-theme="tahoe"] .comp-back::before,
+  body[data-theme="tahoe"] .comp-back::after {
+    corner-shape: squircle;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body[data-theme="tahoe"] .wiki-header,
+  body[data-theme="tahoe"] .wiki-sidebar,
+  body[data-theme="tahoe"] .wiki-main,
+  body[data-theme="tahoe"] .wiki-footer,
+  body[data-theme="tahoe"] .wiki-nav-search,
+  body[data-theme="tahoe"] .header-search-input,
+  body[data-theme="tahoe"] .theme-toggle,
+  body[data-theme="tahoe"] .wiki-hero-btn-secondary,
+  body[data-theme="tahoe"] .comp-back,
+  body[data-theme="tahoe"] .wiki-hero-card,
+  body[data-theme="tahoe"] .wiki-hero-block,
+  body[data-theme="tahoe"] .wiki-legend-table-surface,
+  body[data-theme="tahoe"] .comp-card,
+  body[data-theme="tahoe"] .orphan-card,
+  body[data-theme="tahoe"] .comp-refs-sidebar,
+  body[data-theme="tahoe"] .comp-ref-item,
+  body[data-theme="tahoe"] .figma-preview,
+  body[data-theme="tahoe"] .wiki-about-block,
+  body[data-theme="tahoe"] .wiki-kit-card,
+  body[data-theme="tahoe"] .sidebar-toggle {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    filter: none;
+  }
+
+  body[data-theme="tahoe"] .wiki-header::before,
+  body[data-theme="tahoe"] .wiki-header::after,
+  body[data-theme="tahoe"] .wiki-footer::before,
+  body[data-theme="tahoe"] .wiki-footer::after,
+  body[data-theme="tahoe"] .wiki-sidebar::before,
+  body[data-theme="tahoe"] .wiki-sidebar::after,
+  body[data-theme="tahoe"] .wiki-hero-card::before,
+  body[data-theme="tahoe"] .wiki-hero-card::after,
+  body[data-theme="tahoe"] .wiki-hero-block::before,
+  body[data-theme="tahoe"] .wiki-hero-block::after,
+  body[data-theme="tahoe"] .wiki-legend-table-surface::before,
+  body[data-theme="tahoe"] .wiki-legend-table-surface::after,
+  body[data-theme="tahoe"] .theme-toggle::before,
+  body[data-theme="tahoe"] .theme-toggle::after,
+  body[data-theme="tahoe"] .wiki-hero-btn-secondary::before,
+  body[data-theme="tahoe"] .wiki-hero-btn-secondary::after,
+  body[data-theme="tahoe"] .comp-card::before,
+  body[data-theme="tahoe"] .comp-card::after,
+  body[data-theme="tahoe"] .orphan-card::before,
+  body[data-theme="tahoe"] .orphan-card::after,
+  body[data-theme="tahoe"] .wiki-kit-card::before,
+  body[data-theme="tahoe"] .wiki-kit-card::after,
+  body[data-theme="tahoe"] .wiki-about-block::before,
+  body[data-theme="tahoe"] .wiki-about-block::after,
+  body[data-theme="tahoe"] .comp-back::before,
+  body[data-theme="tahoe"] .comp-back::after,
+  body[data-theme="tahoe"] .sidebar-toggle::before,
+  body[data-theme="tahoe"] .sidebar-toggle::after {
+    content: none;
+  }
+
+  body[data-theme="tahoe"] .wiki-header > *,
+  body[data-theme="tahoe"] .wiki-footer > * {
+    position: static;
+    z-index: auto;
+  }
+
+  body[data-theme="tahoe"] .wiki-sidebar-inner {
+    z-index: auto;
+  }
+
+  body[data-theme="tahoe"] {
+    background: #e8eef3;
+    background-image: none;
+  }
+
+  body[data-theme="tahoe"]::before {
+    display: none;
+    filter: none;
+  }
+
+  body[data-theme="tahoe"] .wiki-header,
+  body[data-theme="tahoe"] .wiki-footer {
+    background: #f6f8fa;
+  }
+
+  body[data-theme="tahoe"] .wiki-sidebar {
+    background: #f2f4f7;
+  }
+
+  body[data-theme="tahoe"] .wiki-hero-card,
+  body[data-theme="tahoe"] .wiki-legend-table-surface,
+  body[data-theme="tahoe"] .comp-card,
+  body[data-theme="tahoe"] .orphan-card,
+  body[data-theme="tahoe"] .comp-refs-sidebar,
+  body[data-theme="tahoe"] .figma-preview,
+  body[data-theme="tahoe"] .wiki-about-block,
+  body[data-theme="tahoe"] .wiki-kit-card {
+    background: #fff;
+  }
+
+  body[data-theme="tahoe"] .wiki-hero-block,
+  body[data-theme="tahoe"] .comp-ref-item {
+    background: #f0f2f5;
+  }
+
+  body[data-theme="tahoe"] .wiki-hero-block-accent {
+    background: #e8f2fc;
+  }
+
+  body[data-theme="tahoe"] .theme-toggle {
+    background: #eceff3;
+  }
+
+  body[data-theme="tahoe"] .wiki-hero-btn-secondary,
+  body[data-theme="tahoe"] .comp-back {
+    background: #fff;
+  }
+
+  body[data-theme="tahoe"] .sidebar-toggle {
+    background: #f0f2f5;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) and (min-width: 1025px) {
+  body[data-theme="tahoe"] .wiki-main {
+    background: #fff;
+  }
+}

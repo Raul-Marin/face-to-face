@@ -1,0 +1,916 @@
+/* Material Web theme - Material Design 3 (material-components/material-web) */
+/* Activado con body[data-theme="material"] */
+/* Tokens alineados con Material Theme Builder: https://material-foundation.github.io/material-theme-builder/ */
+
+body[data-theme="material"] {
+  font-family: "Roboto", "Roboto Flex", system-ui, sans-serif;
+  --dot-color: transparent;
+
+  /* M3 color tokens (baseline purple - editable vía Material Theme Builder) */
+  --md-sys-color-primary: #6750A4;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #E8DEF8;
+  --md-sys-color-on-primary-container: #381E72;
+  --md-sys-color-secondary: #625B71;
+  --md-sys-color-on-secondary: #FFFFFF;
+  --md-sys-color-secondary-container: #E8DEF8;
+  --md-sys-color-on-secondary-container: #1D192B;
+  --md-sys-color-tertiary: #7D5260;
+  --md-sys-color-tertiary-container: #FFD8E4;
+  --md-sys-color-on-tertiary-container: #31111D;
+  --md-sys-color-surface: #FFFBFE;
+  --md-sys-color-on-surface: #1D1B20;
+  --md-sys-color-on-surface-variant: #49454F;
+  --md-sys-color-outline: #79747E;
+  --md-sys-color-outline-variant: #CAC4D0;
+  --md-sys-color-surface-container-low: #F7F2FA;
+  --md-sys-color-surface-container: #F3EDF7;
+  --md-sys-color-surface-container-high: #ECE6F0;
+  --md-sys-color-surface-container-highest: #E6E0E9;
+  --md-sys-color-primary-rgb: 103, 80, 164;
+  --md-sys-color-primary-container-rgb: 232, 222, 248;
+  --md-sys-color-secondary-rgb: 98, 91, 113;
+  --md-sys-color-tertiary-rgb: 125, 82, 96;
+  --md-sys-color-error-rgb: 179, 38, 30;
+
+  /* Mapeo a vars del proyecto */
+  --sidebar-bg: var(--md-sys-color-surface-container);
+  --sidebar-border: var(--md-sys-color-primary-container);
+  --sidebar-text: var(--md-sys-color-on-surface-variant);
+  --sidebar-text-active: var(--md-sys-color-on-surface);
+  --sidebar-accent: var(--md-sys-color-primary);
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 6px 2px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 12px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
+  --content-bg: rgba(255, 255, 255, 0.95);
+  --content-border: rgba(var(--md-sys-color-primary-rgb), 0.12);
+}
+
+/* Fondo: superficie M3 tonal (surface-container) */
+body[data-theme="material"] {
+  background-color: var(--md-sys-color-surface-container);
+  background-image: none;
+}
+
+body[data-theme="material"] .wiki-main {
+  background-color: var(--md-sys-color-surface-container);
+}
+
+/* Header: Top App Bar Material con elevación */
+body[data-theme="material"] .wiki-header {
+  background: var(--md-sys-color-surface);
+  border-bottom: none;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.08);
+}
+
+/* Sidebar: Navigation Drawer Material Design 3 */
+body[data-theme="material"] .wiki-sidebar {
+  background: var(--md-sys-color-surface);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+}
+
+body[data-theme="material"] .wiki-sidebar-inner {
+  padding: 0.5rem 0;
+}
+
+body[data-theme="material"] .wiki-nav {
+  padding: 0 12px 0 12px;
+}
+
+/* Categorías: label Material */
+body[data-theme="material"] .wiki-nav-category + .wiki-nav-category {
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+body[data-theme="material"] .wiki-nav-category-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0 12px 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Lista: items tipo Material list */
+body[data-theme="material"] .wiki-nav-item {
+  border-bottom: none;
+  margin-bottom: 2px;
+}
+
+body[data-theme="material"] .wiki-nav-link {
+  min-height: 40px;
+  padding: 0 12px;
+  margin: 0 4px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+body[data-theme="material"] .wiki-nav-link:hover:not(.active) {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.08);
+  color: var(--md-sys-color-on-surface);
+}
+
+/* Nav links activos: filled tonal container */
+body[data-theme="material"] .wiki-nav-link.active {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container) !important;
+  font-weight: 500;
+}
+
+body[data-theme="material"] .wiki-nav-link.active[data-platform="both"],
+body[data-theme="material"] .wiki-nav-link.active[data-platform="ios"] {
+  color: var(--md-sys-color-on-primary-container) !important;
+}
+
+body[data-theme="material"] .wiki-nav-link.active[data-platform="md"] {
+  background: #B8E6CC;
+  color: #00391C !important;
+}
+
+/* Links coming/WIP: assist chip style */
+body[data-theme="material"] .wiki-nav-link-coming {
+  padding: 0.4rem 12px;
+}
+
+body[data-theme="material"] .wiki-nav-link-coming .wiki-nav-coming-label {
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+
+/* Toggle de sección */
+body[data-theme="material"] .wiki-nav-toggle {
+  padding: 0.5rem 12px;
+  margin: 0 4px;
+  border-radius: 20px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+body[data-theme="material"] .wiki-nav-toggle:hover {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.08);
+  color: var(--md-sys-color-on-surface);
+}
+
+body[data-theme="material"] .wiki-nav-count {
+  color: var(--md-sys-color-outline);
+}
+
+body[data-theme="material"] .wiki-nav-no-results {
+  color: var(--md-sys-color-outline);
+  padding: 1rem 12px;
+}
+
+body[data-theme="material"] .wiki-nav-section + .wiki-nav-section {
+  border-top-color: var(--md-sys-color-outline-variant);
+}
+
+body[data-theme="material"] .header-home:hover,
+body[data-theme="material"] .header-home.active {
+  color: var(--md-sys-color-primary);
+}
+
+/* Hero card: superficie suave + padding único del bloque (más aire que iOS base) */
+body[data-theme="material"] .wiki-hero-card {
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: 28px;
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(var(--md-sys-color-primary-rgb), 0.08);
+  overflow: visible;
+  padding: 1.75rem 1.5rem 1.75rem;
+  margin-bottom: 2.25rem;
+}
+
+@media (min-width: 768px) {
+  body[data-theme="material"] .wiki-hero-card {
+    padding: 2.5rem 2.75rem 2.75rem;
+  }
+}
+
+/* Hero split: sin columna de 1px; solo espacio entre columnas */
+body[data-theme="material"] .wiki-hero-split {
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  body[data-theme="material"] .wiki-hero-split {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: center;
+  }
+}
+
+body[data-theme="material"] .wiki-hero-divider {
+  display: none;
+}
+
+/* Blobs: paleta tonal más suave */
+body[data-theme="material"] .wiki-blob-1 {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.12);
+}
+
+body[data-theme="material"] .wiki-blob-2 {
+  background: rgba(var(--md-sys-color-primary-container-rgb), 0.15);
+}
+
+body[data-theme="material"] .wiki-blob-3 {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.08);
+}
+
+/* Hero blocks: reparto elegante de secondary, tertiary y neutral */
+body[data-theme="material"] .wiki-hero-block {
+  border-radius: 20px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  padding: 1.875rem 1.625rem;
+}
+
+@media (min-width: 768px) {
+  body[data-theme="material"] .wiki-hero-block {
+    padding: 2rem 1.75rem;
+  }
+}
+
+/* Correspondencias: matiz secondary muy suave (antes secondary-container completo) */
+body[data-theme="material"] .wiki-hero-grid > .wiki-hero-block:first-of-type {
+  background: color-mix(in srgb, var(--md-sys-color-secondary-container) 18%, var(--md-sys-color-surface-container-high) 82%);
+  color: var(--md-sys-color-on-surface);
+}
+
+body[data-theme="material"] .wiki-hero-grid > .wiki-hero-block:last-child {
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+
+body[data-theme="material"] .wiki-hero-block:hover {
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 88%, white);
+}
+
+body[data-theme="material"] .wiki-hero-grid > .wiki-hero-block:first-of-type:hover {
+  background: color-mix(in srgb, var(--md-sys-color-secondary-container) 26%, var(--md-sys-color-surface-container-high) 74%);
+}
+
+body[data-theme="material"] .wiki-hero-grid > .wiki-hero-block:first-of-type .wiki-hero-block-title {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+body[data-theme="material"] .wiki-hero-grid > .wiki-hero-block:first-of-type .wiki-hero-block-desc {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+body[data-theme="material"] .wiki-hero-grid > .wiki-hero-block:last-child:hover {
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-highest) 92%, white);
+}
+
+/* Documentación: mismo peso visual que las otras cards, solo un matiz tertiary muy suave */
+body[data-theme="material"] .wiki-hero-block-accent {
+  background: color-mix(in srgb, var(--md-sys-color-tertiary-container) 18%, var(--md-sys-color-surface-container-high) 82%);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  color: var(--md-sys-color-on-surface);
+}
+
+body[data-theme="material"] .wiki-hero-block-accent:hover {
+  background: color-mix(in srgb, var(--md-sys-color-tertiary-container) 26%, var(--md-sys-color-surface-container-high) 74%);
+}
+
+body[data-theme="material"] .wiki-hero-block-accent .wiki-hero-block-title {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+body[data-theme="material"] .wiki-hero-block-accent .wiki-hero-block-desc {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Grid de cards: tres columnas con hueco; sin rayas entre bloques */
+body[data-theme="material"] .wiki-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.125rem;
+  margin-top: 0;
+  padding-top: 2rem;
+  border-top: none;
+}
+
+@media (min-width: 640px) {
+  body[data-theme="material"] .wiki-hero-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    padding-top: 2.25rem;
+  }
+}
+
+body[data-theme="material"] .wiki-hero-block-divider {
+  display: none;
+}
+
+/* Botón primario: filled Material */
+body[data-theme="material"] .wiki-hero-btn-primary {
+  background: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 20px;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="material"] .wiki-hero-btn-primary:hover {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 85%, black) !important;
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.12);
+}
+
+body[data-theme="material"] .wiki-hero-btn-secondary {
+  border: 1px solid var(--md-sys-color-outline);
+  color: var(--md-sys-color-secondary);
+  background: var(--md-sys-color-surface);
+  border-radius: 20px;
+  padding: 0.6rem 1.25rem;
+}
+
+/* Cards de componente: surface container con elevación */
+body[data-theme="material"] .comp-card,
+body[data-theme="material"] .orphan-card {
+  border-radius: 20px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+body[data-theme="material"] .comp-card:hover,
+body[data-theme="material"] .orphan-card:hover {
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeceras iOS / Android: iguales que la versión default (styles.css); no usan tokens del tema */
+body[data-theme="material"] .comp-card-ios .comp-card-icon {
+  background: linear-gradient(165deg, rgba(0, 122, 255, 0.1) 0%, rgba(0, 122, 255, 0.03) 100%);
+  color: #007AFF;
+}
+
+body[data-theme="material"] .comp-card-md .comp-card-icon {
+  background: linear-gradient(165deg, rgba(1, 135, 134, 0.1) 0%, rgba(1, 135, 134, 0.03) 100%);
+  color: #018786;
+}
+
+/* Badges: chips Material */
+body[data-theme="material"] .comp-badge-alta {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+}
+
+body[data-theme="material"] .comp-badge-media {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+}
+
+body[data-theme="material"] .comp-badge-baja {
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface-variant);
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+}
+
+/* Leyenda home: badges con tokens (alta=primary, media=tertiary, baja=surface) */
+body[data-theme="material"] .wiki-badge-alta {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+body[data-theme="material"] .wiki-badge-media {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+body[data-theme="material"] .wiki-badge-baja {
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface-variant);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Error: badge WIP y estados de error */
+body[data-theme="material"] .wiki-nav-badge-progress {
+  background: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+  border: none;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  padding: 0.15rem 0.5rem;
+}
+
+/* Highlight hero: siempre azul (Face) y verde (Face) - no cambia con el tema */
+
+/* Botones de enlace: tonal */
+body[data-theme="material"] .comp-back,
+body[data-theme="material"] .comp-card-btn {
+  color: var(--md-sys-color-primary);
+  font-weight: 500;
+}
+
+body[data-theme="material"] .comp-card-btn {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.12);
+  border-radius: 20px;
+  padding: 0.4rem 0.9rem;
+}
+
+body[data-theme="material"] .comp-card-btn:hover,
+body[data-theme="material"] .wiki-hero-btn-secondary:hover {
+  background: color-mix(in srgb, var(--md-sys-color-secondary-container) 72%, white);
+}
+
+/* Toggles del header: segmented button Material */
+body[data-theme="material"] .header-toggles {
+  justify-content: center;
+}
+
+body[data-theme="material"] .theme-toggle {
+  background: var(--md-sys-color-secondary-container);
+  border: none;
+  border-radius: 20px;
+  padding: 3px;
+}
+
+body[data-theme="material"] .theme-toggle-btn {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+body[data-theme="material"] .theme-toggle-btn:hover {
+  color: var(--md-sys-color-on-surface);
+}
+
+body[data-theme="material"] .theme-toggle-btn.active {
+  background: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+}
+
+/* Search input: outlined TextField Material */
+body[data-theme="material"] .wiki-nav-search,
+body[data-theme="material"] .header-search-input {
+  background: var(--md-sys-color-surface);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 4px 4px 0 0;
+  border-bottom: 2px solid var(--md-sys-color-outline);
+}
+
+body[data-theme="material"] .wiki-nav-search:focus,
+body[data-theme="material"] .header-search-input:focus {
+  border-color: var(--md-sys-color-primary);
+  border-bottom-color: var(--md-sys-color-primary);
+  box-shadow: none;
+  outline: none;
+}
+
+/* Footer */
+body[data-theme="material"] .wiki-footer {
+  background: var(--md-sys-color-surface);
+  border-top: 1px solid var(--md-sys-color-primary-container);
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Leyenda correspondencia: tabla horizontal tipo M3 */
+body[data-theme="material"] .wiki-home-legend {
+  border-top: none;
+  padding-top: 2.75rem;
+  margin-top: 0.75rem;
+}
+
+body[data-theme="material"] .wiki-home-legend .wiki-home-h2 {
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+body[data-theme="material"] .wiki-legend-table-surface {
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-outline) 32%, var(--md-sys-color-outline-variant));
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--md-sys-color-surface);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  isolation: isolate;
+}
+
+body[data-theme="material"] .wiki-legend-matrix {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--md-sys-color-on-surface-variant);
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+body[data-theme="material"] .wiki-legend-matrix tbody th {
+  background: var(--md-sys-color-surface-container-high);
+  border-color: var(--md-sys-color-outline-variant);
+  border-bottom-color: color-mix(in srgb, var(--md-sys-color-outline) 28%, var(--md-sys-color-outline-variant));
+}
+
+body[data-theme="material"] .wiki-legend-matrix tbody td {
+  border-color: var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+@media (min-width: 720px) {
+  body[data-theme="material"] .wiki-legend-matrix tbody tr:nth-child(3) th,
+  body[data-theme="material"] .wiki-legend-matrix tbody tr:nth-child(3) td {
+    border-right: none;
+  }
+}
+
+body[data-theme="material"] .wiki-legend-table-wrap {
+  overflow-y: visible;
+}
+
+/* Section / comp-back */
+body[data-theme="material"] .wiki-section {
+  background: transparent;
+}
+
+body[data-theme="material"] .comp-back {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  background: rgba(var(--md-sys-color-primary-rgb), 0.12);
+}
+
+body[data-theme="material"] .comp-back:hover {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.2);
+}
+
+/* Orphan card tag */
+body[data-theme="material"] .orphan-card-tag {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border: none;
+}
+
+/* About / wiki-block: secondary-container suave */
+body[data-theme="material"] .wiki-block,
+body[data-theme="material"] .wiki-about-h3.wiki-about-h3-highlight {
+  color: var(--md-sys-color-on-surface);
+}
+
+body[data-theme="material"] .wiki-about-block {
+  background: var(--md-sys-color-secondary-container);
+  border-radius: 16px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+body[data-theme="material"] .wiki-about-cta {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary) !important;
+  padding: 0.6rem 1.25rem;
+  border-radius: 20px;
+}
+
+body[data-theme="material"] .wiki-about-cta:hover {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 85%, black) !important;
+}
+
+/* Refs sidebar ("Para profundizar"): tinte muy suave, no secondary-container a tope */
+body[data-theme="material"] .comp-refs-sidebar {
+  background: color-mix(in srgb, var(--md-sys-color-secondary-container) 12%, var(--md-sys-color-surface) 88%);
+  border-radius: 20px;
+  padding: 1.25rem;
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+body[data-theme="material"] .comp-ref-item {
+  border-radius: 12px;
+  background: var(--md-sys-color-surface);
+  border-color: var(--md-sys-color-outline-variant);
+}
+
+body[data-theme="material"] .comp-ref-item:hover {
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-high) 88%, var(--md-sys-color-secondary-container) 12%);
+}
+
+/* ========== LAYOUT MATERIAL DESIGN 3 ========== */
+
+/* FAB: oculto por defecto, visible solo en Material */
+.material-fab {
+  display: none;
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px 4px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.material-fab:hover {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 85%, black);
+  box-shadow: 0 6px 16px 6px rgba(0, 0, 0, 0.18);
+}
+
+body[data-theme="material"] .material-fab {
+  display: flex;
+}
+
+/* Mismas medidas que Default: solo estilo M3 abajo */
+
+body[data-theme="material"] .header-home {
+  justify-content: flex-start;
+}
+
+body[data-theme="material"] .header-right {
+  justify-content: flex-end;
+}
+
+/* Layout: sidebar tipo Navigation Drawer con esquina redondeada */
+body[data-theme="material"] .wiki-layout {
+  gap: 0;
+  align-items: stretch;
+}
+
+body[data-theme="material"] .wiki-sidebar {
+  border-radius: 0 20px 20px 0;
+  margin-right: 0;
+}
+
+/* Main: esquina redondeada a la izquierda, continuidad visual */
+body[data-theme="material"] .wiki-main {
+  border-radius: 20px 0 0 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-left: -1px;
+}
+
+body[data-theme="material"] .wiki-content {
+  padding: 2rem 2.5rem 3rem;
+  max-width: 880px;
+}
+
+body[data-theme="material"] .wiki-content:has(.wiki-home) {
+  max-width: 960px;
+  padding: 2.75rem clamp(1.25rem, 4vw, 2.75rem) 3.5rem;
+}
+
+body[data-theme="material"] .wiki-content:has(.comp-page-layout) {
+  max-width: 1160px;
+}
+
+/* Hero: el aire lo da .wiki-hero-card; columnas sin padding extra */
+body[data-theme="material"] .wiki-hero-left,
+body[data-theme="material"] .wiki-hero-right {
+  padding: 0;
+}
+
+body[data-theme="material"] .wiki-hero-desc {
+  max-width: 42ch;
+  margin-bottom: 1.75rem;
+}
+
+body[data-theme="material"] .wiki-hero-ctas {
+  gap: 0.875rem;
+}
+
+body[data-theme="material"] .wiki-hero-sub {
+  margin-top: 0.25rem;
+}
+
+body[data-theme="material"] .wiki-hero-block-icon {
+  margin-bottom: 1rem;
+}
+
+body[data-theme="material"] .wiki-hero-block-correspondencias .wiki-hero-block-icon-ios {
+  color: color-mix(in srgb, #0a84ff 52%, var(--md-sys-color-on-surface-variant) 48%);
+}
+
+body[data-theme="material"] .wiki-hero-block-correspondencias .wiki-hero-block-icon-android {
+  color: color-mix(in srgb, #1e8e3e 48%, var(--md-sys-color-on-surface-variant) 52%);
+}
+
+body[data-theme="material"] .wiki-hero-block-title {
+  margin-bottom: 0.5rem;
+}
+
+/* Mobile: drawer con elevación (header = variables --shell-* en styles.css) */
+@media (max-width: 1024px) {
+  body[data-theme="material"] .wiki-sidebar {
+    border-radius: 0 20px 20px 0;
+    margin: 0;
+    top: var(--shell-header-min-height);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+  }
+
+  body[data-theme="material"] .material-fab {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+}
+
+/* ========== PANEL TEMA DINÁMICO (slide-in, sin blur — cambio en vivo) ========== */
+.material-color-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-width: 100%;
+  height: 100vh;
+  background: #FFFBFE;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  z-index: 90;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+.material-color-panel.open {
+  transform: translateX(0);
+}
+
+.material-color-panel-inner {
+  padding: 1.25rem 1.5rem 2rem;
+}
+
+.material-color-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.material-color-panel-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1D1B20;
+}
+
+.material-color-panel-close {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  border-radius: 20px;
+  color: #49454F;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.material-color-panel-close:hover {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.08);
+  color: var(--md-sys-color-on-surface);
+}
+
+.material-color-panel-desc {
+  margin: 0 0 1rem;
+  font-size: 0.8125rem;
+  color: #49454F;
+  line-height: 1.5;
+}
+
+.material-color-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.material-color-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 16px;
+  background: rgba(var(--md-sys-color-primary-rgb, 103, 80, 164), 0.04);
+  transition: background 0.2s;
+}
+
+.material-color-row:hover {
+  background: rgba(var(--md-sys-color-primary-rgb, 103, 80, 164), 0.08);
+}
+
+.material-color-swatch-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.material-color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+  pointer-events: none;
+}
+
+.material-color-swatch-wrap:hover .material-color-swatch {
+  transform: scale(1.05);
+}
+
+.material-color-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.material-color-row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.material-color-row-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1D1B20;
+}
+
+.material-color-row-desc {
+  font-size: 0.75rem;
+  color: #79747E;
+  line-height: 1.3;
+}
+
+.material-color-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.material-color-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.material-color-btn-shuffle {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.material-color-btn-shuffle:hover {
+  background: color-mix(in srgb, var(--md-sys-color-primary-container) 90%, black);
+}
+
+.material-color-btn-reset {
+  background: transparent;
+  color: #49454F;
+  border: 1px solid #79747E;
+  width: 100%;
+}
+
+.material-color-btn-reset:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
