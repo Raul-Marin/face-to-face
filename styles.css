@@ -218,6 +218,12 @@ body {
   line-height: 1;
 }
 
+/* Glifo fa-apple suele ir un poco bajo respecto al texto “iOS” */
+.theme-toggle-btn .fa-apple {
+  position: relative;
+  top: -0.11em;
+}
+
 .theme-toggle-btn:hover {
   color: var(--sidebar-text-active);
 }
@@ -2295,6 +2301,10 @@ body {
     font-size: 1em !important;
     width: 1em !important;
     height: 1em !important;
+  }
+
+  .theme-toggle-btn .fa-apple {
+    top: -0.1em;
   }
 
   body[data-theme="material"] .theme-toggle {
